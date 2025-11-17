@@ -1,1 +1,291 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Analógico - Olho que Tudo Vê</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #e6e6e6;
+        }
+
+        .clock-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .clock {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(30, 30, 46, 0.8);
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 8px solid #2d3047;
+        }
+
+        .clock-face {
+            position: relative;
+            width: 92%;
+            height: 92%;
+            border-radius: 50%;
+        }
+
+        /* Olho que tudo vê */
+        .all-seeing-eye {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            z-index: 1;
+            opacity: 0.15;
+        }
+
+        .eye-outer {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #0f3460 0%, #1a1a2e 70%);
+            position: relative;
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .eye-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #e94560 0%, #533483 70%);
+        }
+
+        .eye-pupil {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+            background: #000;
+        }
+
+        /* Marcadores do relógio */
+        .marker {
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background: #e6e6e6;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translateX(-50%);
+        }
+
+        .marker.hour-marker {
+            height: 15px;
+            width: 4px;
+            background: #f0f0f0;
+        }
+
+        /* Ponteiros do relógio */
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            border-radius: 4px 4px 2px 2px;
+            z-index: 2;
+        }
+
+        .hour-hand {
+            width: 6px;
+            height: 25%;
+            background: #e94560;
+            transform: translateX(-50%);
+        }
+
+        .minute-hand {
+            width: 4px;
+            height: 35%;
+            background: #4face5;
+            transform: translateX(-50%);
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 40%;
+            background: #f0f0f0;
+            transform: translateX(-50%);
+        }
+
+        /* Centro do relógio */
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Data e hora digital */
+        .digital-time {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            color: #e6e6e6;
+            letter-spacing: 1px;
+        }
+
+        /* Triângulo no topo (parte do símbolo) */
+        .triangle {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid rgba(79, 172, 254, 0.1);
+            z-index: 0;
+        }
+
+        /* Raios de luz saindo do olho */
+        .light-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, rgba(79, 172, 254, 0.4), transparent);
+            transform-origin: top center;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relógio Analógico</h1>
+        <div class="clock-container">
+            <div class="triangle"></div>
+            <div class="clock">
+                <div class="all-seeing-eye">
+                    <div class="eye-outer">
+                        <div class="eye-inner">
+                            <div class="eye-pupil"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clock-face">
+                    <!-- Marcadores serão inseridos via JavaScript -->
+                </div>
+                <div class="hand hour-hand"></div>
+                <div class="hand minute-hand"></div>
+                <div class="hand second-hand"></div>
+                <div class="center-circle"></div>
+            </div>
+        </div>
+        <div class="digital-time" id="digitalTime">00:00:00</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const clockFace = document.querySelector('.clock-face');
+            const hourHand = document.querySelector('.hour-hand');
+            const minuteHand = document.querySelector('.minute-hand');
+            const secondHand = document.querySelector('.second-hand');
+            const digitalTime = document.getElementById('digitalTime');
+            
+            // Criar marcadores do relógio
+            for (let i = 0; i < 60; i++) {
+                const marker = document.createElement('div');
+                marker.classList.add('marker');
+                
+                // Marcadores de hora são maiores
+                if (i % 5 === 0) {
+                    marker.classList.add('hour-marker');
+                }
+                
+                marker.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+                clockFace.appendChild(marker);
+            }
+            
+            // Criar raios de luz
+            const clockContainer = document.querySelector('.clock-container');
+            for (let i = 0; i < 12; i++) {
+                const ray = document.createElement('div');
+                ray.classList.add('light-ray');
+                ray.style.transform = `translateX(-50%) rotate(${i * 30}deg)`;
+                clockContainer.appendChild(ray);
+            }
+            
+            function updateClock() {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+                
+                // Calcular ângulos dos ponteiros
+                const hourAngle = (hours % 12) * 30 + minutes * 0.5; // 30 graus por hora + 0.5 graus por minuto
+                const minuteAngle = minutes * 6 + seconds * 0.1; // 6 graus por minuto + 0.1 graus por segundo
+                const secondAngle = seconds * 6; // 6 graus por segundo
+                
+                // Aplicar rotações
+                hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
+                minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
+                secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
+                
+                // Atualizar hora digital
+                const timeString = now.toLocaleTimeString('pt-BR');
+                digitalTime.textContent = timeString;
+            }
+            
+            // Atualizar o relógio imediatamente e a cada segundo
+            updateClock();
+            setInterval(updateClock, 1000);
+        });
+    </script>
+</body>
+</html>
