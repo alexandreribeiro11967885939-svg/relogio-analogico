@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relógio Analógico Romano</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#fff;
+}
+#clock{
+  width:420px;
+  height:420px;
+  background:#1f7a1f;
+  border:10px solid #0b4d0b;
+  border-radius:50%;
+  position:relative;
+}
+.number{
+  position:absolute;
+  color:#fff;
+  font-size:30px;
+  font-family:serif;
+  font-weight:bold;
+  transform:translate(-50%,-50%);
+}
+.hand{
+  position:absolute;
+  left:50%;
+  bottom:50%;
+  transform-origin:50% 100%;
+  transform:translateX(-50%) rotate(0deg);
+  border-radius:4px;
+}
+#hour{
+  width:10px;
+  height:110px;
+  background:#fff;
+}
+#minute{
+  width:6px;
+  height:150px;
+  background:#fff;
+}
+#second{
+  width:3px;
+  height:170px;
+  background:red;
+}
+#center{
+  width:14px;
+  height:14px;
+  background:#fff;
+  border-radius:50%;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+</style>
+</head>
+<body>
+<div id="clock">
+  <div id="hour" class="hand"></div>
+  <div id="minute" class="hand"></div>
+  <div id="second" class="hand"></div>
+  <div id="center"></div>
+</div>
+<script>
+const clock=document.getElementById('clock');
+const romans=['XII','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'];
+romans.forEach((n,i)=>{
+  const d=document.createElement('div');
+  d.className='number';
+  const angle=i*30*Math.PI/180;
+  const r=185;
+  d.style.left=210+r*Math.sin(angle)+'px';
+  d.style.top=210-r*Math.cos(angle)+'px';
+  d.textContent=n;
+  clock.appendChild(d);
+});
+const h=document.getElementById('hour');
+const m=document.getElementById('minute');
+const s=document.getElementById('second');
+function tick(){
+  const now=new Date();
+  const hr=now.getHours()%12;
+  const min=now.getMinutes();
+  const sec=now.getSeconds();
+  h.style.transform=`translateX(-50%) rotate(${hr*30+min*0.5}deg)`;
+  m.style.transform=`translateX(-50%) rotate(${min*6}deg)`;
+  s.style.transform=`translateX(-50%) rotate(${sec*6}deg)`;
+}
+setInterval(tick,1000);
+tick();
+</script>
+</body>
+</html>

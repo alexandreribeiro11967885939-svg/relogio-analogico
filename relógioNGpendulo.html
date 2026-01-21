@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Relógio de Pêndulo Histórico</title>
+<style>
+body {
+  margin:0;
+  background:#111;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:sans-serif;
+  overflow:hidden;
+}
+
+#relogio {
+  position:relative;
+  width:400px;
+  height:400px;
+}
+
+/* Corda/Mola */
+#corda {
+  position:absolute;
+  width:6px;
+  height:120px;
+  background:#666;
+  top:10px;
+  left:200px;
+}
+
+/* Engrenagens */
+.gear {
+  position:absolute;
+  width:80px;
+  height:80px;
+  border:6px solid #aaa;
+  border-radius:50%;
+  transform-origin:center center;
+}
+
+.gear::before {
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:4px solid #777;
+  border-radius:50%;
+}
+
+#gear1 { top:40px; left:60px; }
+#gear2 { top:70px; left:130px; }
+
+/* Pêndulo */
+#pendulo {
+  position:absolute;
+  top:130px;
+  left:200px;
+  transform-origin: top center;
+}
+
+#haste {
+  width:4px;
+  height:160px;
+  background:#aaa;
+  margin:auto;
+}
+
+#peso {
+  width:40px;
+  height:40px;
+  background:#888;
+  border-radius:50%;
+  margin:auto;
+}
+</style>
+</head>
+<body>
+
+<div id="relogio">
+  <div id="corda"></div>
+  <div class="gear" id="gear1"></div>
+  <div class="gear" id="gear2"></div>
+  <div id="pendulo">
+    <div id="haste"></div>
+    <div id="peso"></div>
+  </div>
+</div>
+
+<script>
+const pendulo = document.getElementById("pendulo");
+const gear1 = document.getElementById("gear1");
+const gear2 = document.getElementById("gear2");
+
+// Parâmetros do pêndulo histórico
+const L = 0.993; // comprimento em metros (~1 m)
+const massa = 1; // kg
+const impulsoMola = 9.8; // N, força da mola ~1G
+const amplitudeMax = 30; //arco do pendulo graus máximo
+
+function updateClock() {
+  const now = new Date();
+  const ms = now.getMilliseconds();
+  const sec = now.getSeconds();
+
+  // Oscilação do pêndulo simulando impulso da mola
+  const t = sec + ms/1000; // tempo em segundos
+  const angle = Math.sin((t/1) * 1*Math.PI) * amplitudeMax;
+  pendulo.style.transform = `rotate(${angle}deg)`;
+
+  // Engrenagens girando proporcional ao tempo
+  const gearAngle1 = (t/60)*360;
+  const gearAngle2 = -(t/60)*360;
+  gear1.style.transform = `rotate(${gearAngle1}deg)`;
+  gear2.style.transform = `rotate(${gearAngle2}deg)`;
+
+  requestAnimationFrame(updateClock);
+}
+
+updateClock();
+</script>
+
+</body>
+</html>
