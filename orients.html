@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relógio Analógico</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fff;
+}
+
+/* relógio CIRCULAR */
+.clock{
+    width:600px;
+    aspect-ratio:1 / 1; /* ISSO GARANTE CÍRCULO */
+    background:#0a5f08;
+    border:14px solid #222;
+    border-radius:50%;
+    position:relative;
+    box-shadow:inset 0 0 30px rgba(0,0,0,.5);
+}
+
+/* números romanos */
+.number{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    font-size:48px;
+    font-weight:bold;
+    color:white;
+    transform:rotate(var(--a));
+}
+
+.number span{
+    margin-top:28px;
+    transform:rotate(calc(-1 * var(--a)));
+}
+
+/* ponteiros */
+.hand{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform-origin:50% 100%;
+    transform:translate(-50%,-100%) rotate(0deg);
+    border-radius:6px;
+}
+
+.hour{
+    width:16px;
+    height:170px;
+    background:black;
+}
+.minute{
+    width:10px;
+    height:240px;
+    background:black;
+}
+.second{
+    width:4px;
+    height:280px;
+    background:red;
+}
+
+/* centro */
+.center{
+    width:26px;
+    height:26px;
+    background:black;
+    border-radius:50%;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:10;
+}
+</style>
+</head>
+
+<body>
+
+<div class="clock">
+    <div class="number" style="--a:0deg"><span>XII</span></div>
+    <div class="number" style="--a:30deg"><span>I</span></div>
+    <div class="number" style="--a:60deg"><span>II</span></div>
+    <div class="number" style="--a:90deg"><span>III</span></div>
+    <div class="number" style="--a:120deg"><span>IV</span></div>
+    <div class="number" style="--a:150deg"><span>V</span></div>
+    <div class="number" style="--a:180deg"><span>VI</span></div>
+    <div class="number" style="--a:210deg"><span>VII</span></div>
+    <div class="number" style="--a:240deg"><span>VIII</span></div>
+    <div class="number" style="--a:270deg"><span>IX</span></div>
+    <div class="number" style="--a:300deg"><span>X</span></div>
+    <div class="number" style="--a:330deg"><span>XI</span></div>
+
+    <div id="hour" class="hand hour"></div>
+    <div id="minute" class="hand minute"></div>
+    <div id="second" class="hand second"></div>
+
+    <div class="center"></div>
+</div>
+
+<script>
+function updateClock(){
+    const n = new Date();
+
+    const s = n.getSeconds();
+    const m = n.getMinutes();
+    const h = n.getHours() % 12;
+
+    const sDeg = s * 6;
+    const mDeg = m * 6 + s * 0.1;
+    const hDeg = h * 30 + m * 0.5;
+
+    second.style.transform = `translate(-50%,-100%) rotate(${sDeg}deg)`;
+    minute.style.transform = `translate(-50%,-100%) rotate(${mDeg}deg)`;
+    hour.style.transform   = `translate(-50%,-100%) rotate(${hDeg}deg)`;
+}
+
+updateClock();
+setInterval(updateClock,1000);
+</script>
+
+</body>
+</html>
