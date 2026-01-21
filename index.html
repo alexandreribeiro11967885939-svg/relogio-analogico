@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu – Relógios</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+/* Botão menu */
+#menuBtn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Menu lateral */
+#menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #1c1c1c;
+  padding-top: 60px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+#menu a {
+  display: block;
+  padding: 12px 20px;
+  color: #0f0;
+  text-decoration: none;
+  border-bottom: 1px solid #333;
+}
+
+#menu a:hover {
+  background: #333;
+}
+
+/* Conteúdo */
+#content {
+  padding: 60px 20px 20px;
+  text-align: center;
+}
+
+img {
+  max-width: 95%;
+  border: 2px solid #0f0;
+  border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="menuBtn">☰</div>
+
+<nav id="menu">
+  <a href="index.html">index.html</a>
+  <a href="Orient.html">Orient.html</a>
+  <a href="orientrelogio.html">orientrelogio.html</a>
+  <a href="orients.html">orients.html</a>
+  <a href="relógioNGpendulo.html">relógioNGpendulo.html</a>
+  <a href="relógiopendulo.html">relógiopendulo.html</a>
+  <a href="relógiopêndulosincronizado.html">relógiopêndulosincronizado.html</a>
+  <a href="Clock-pendulum.gif">Clock-pendulum.gif</a>
+</nav>
+
+<div id="content">
+  <h1>Repositório – Relógios</h1>
+
+  <p>Imagem do repositório (.png):</p>
+
+  <img src="1768941149241.png" alt="Imagem do repositório">
+</div>
+
+<script>
+const menu = document.getElementById("menu");
+const btn = document.getElementById("menuBtn");
+let aberto = false;
+
+btn.onclick = () => {
+  aberto = !aberto;
+  menu.style.left = aberto ? "0" : "-260px";
+};
+</script>
+
+</body>
+</html>
